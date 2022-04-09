@@ -27,9 +27,9 @@ module.exports.loop = function() {
     //var creepBody = [WORK, WORK, WORK, WORK, WORK, WORK, CARRY, MOVE, MOVE];
     var creepBody = [WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE ,MOVE, MOVE];
 
-    createCreep('harvester', 6, creepBody);
-    createCreep('upgrader', 4, creepBody);
-    createCreep('builder', 6, creepBody);
+    createCreep('harvester', 5, creepBody);
+    createCreep('upgrader', 2, creepBody);
+    createCreep('builder', 2, creepBody);
     createCreep('engineer', 2, creepBody);
 
     Memory.isSpawning = false;

@@ -9,7 +9,7 @@ var roleBuilder = {
 
         if (!creep.memory.working) {
             if (Game.time % Memory.sourceSearchPeriod == 0) {
-                creep.memory.closestSource = creep.pos.findClosestByPath(FIND_SOURCES_ACTIVE).id;
+                general.closestSourceId(creep);
             }
 
             general.achiveAndHarvest(creep, Game.getObjectById(creep.memory.closestSource));

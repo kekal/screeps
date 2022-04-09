@@ -11,13 +11,7 @@ var roleHarvester = {
 
         if (!creep.memory.working) {
             if (Game.time % Memory.sourceSearchPeriod == 0) {
-                var closestSource = creep.pos.findClosestByPath(FIND_SOURCES_ACTIVE);
-                if (closestSource == null) {
-                    creep.memory.closestSource = Memory.waitPoint.id;
-                }
-                else {
-                    creep.memory.closestSource = creep.pos.findClosestByPath(FIND_SOURCES_ACTIVE).id;
-                }
+                general.closestSourceId(creep);
             }
             var pathLengthToLink = creep.pos.findPathTo(Memory.TargetLink).length;
             // console.log(pathLengthToLink);

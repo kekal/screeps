@@ -133,3 +133,13 @@ module.exports.closestSiloId = function(currCreep) {
     });
     return closestSilo ? closestSilo.id : null;
 }
+
+module.exports.closestSourceId = function(currCreep) {
+    var closestSource = currCreep.pos.findClosestByPath(FIND_SOURCES_ACTIVE);
+    if (closestSource == null) {
+        currCreep.memory.closestSource = Memory.waitPoint.id;
+    }
+    else {
+        currCreep.memory.closestSource = closestSource.id;
+    }
+}

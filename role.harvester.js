@@ -6,6 +6,11 @@ var roleHarvester = {
 
     /** @param {Creep} creep **/
     run: function(creep) {
+        // console.log(creep.ticksToLive);
+        if (creep.ticksToLive < 300) {
+            creep.moveTo(Game.spawns['Spawn2'], general.goHarvestStyle);
+            return;
+        }
 
         general.checkReadyStatus(creep, '🌿 store');
 

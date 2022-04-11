@@ -7,6 +7,7 @@ var roleEngineer = require('role.engineer');
 
 
 
+
 module.exports.loop = function() {
     Memory.isSpawning = false;
     Memory.waitPoint = Game.getObjectById('bb474b452371ab6aaace6074');
@@ -14,23 +15,21 @@ module.exports.loop = function() {
 
     var sourceLink1 = Game.getObjectById('217727f28d55153439286814');
     var sourceLink2 = Game.getObjectById('9886d70e0fea2ab6e9ab3ee1');
+    var sourceLink3 = Game.getObjectById('1816597357c09b3fec47385e');
+    
     var targetLink = Game.getObjectById('fce2a2282b823f2433bcdf5c');
 
-    Memory.SourceLinks = [sourceLink1, sourceLink2];
+    Memory.SourceLinks = [sourceLink1, sourceLink2, sourceLink3];
     Memory.TargetLink = targetLink;
-
 
 
     // general.unlockCpu();
     general.freeMemory();
 
-    //var creepBody = [WORK, WORK, WORK, WORK, WORK, WORK, CARRY, MOVE, MOVE];
-    var creepBody = [WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE ,MOVE, MOVE];
-
-    createCreep('harvester', 5, creepBody);
-    createCreep('upgrader', 2, creepBody);
-    createCreep('builder', 2, creepBody);
-    createCreep('engineer', 2, creepBody);
+    createCreep('harvester', 5, general.calcBody(new Map([[WORK, 1], [CARRY, 1], [MOVE, 2]])));
+    createCreep('upgrader', 2, general.calcBody(new Map([[WORK, 1], [CARRY, 2], [MOVE, 2]])));
+    createCreep('builder', 5, general.calcBody(new Map([[WORK, 2], [CARRY, 1], [MOVE, 1]])));
+    createCreep('engineer', 2, general.calcBody(new Map([[WORK, 1], [CARRY, 1], [MOVE, 3]])));
 
     Memory.isSpawning = false;
 
@@ -38,23 +37,13 @@ module.exports.loop = function() {
 
     assigneRoles();
 
-    
-    // const links = Game.spawns['Spawn1'].room.find(FIND_STRUCTURES, {
-    //     filter: (structure) => {
-    //         return (structure.structureType == STRUCTURE_LINK);
-    //     }
-    // });
-    // for (var prop in links) {
-    //     console.log(links[prop].id);
-    // }
 
-    
-    
     // console.log(sourceLink.transferEnergy(targetLink));
     sourceLink1.transferEnergy(targetLink);
     sourceLink2.transferEnergy(targetLink);
+    sourceLink3.transferEnergy(targetLink);
 }
-    
+
 
 function createCreep(roleName, count, creepBody) {
     if (Memory.isSpawning) {

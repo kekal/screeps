@@ -125,9 +125,9 @@ module.exports.getFreeSilos = function(currCreep) {
 
 
 module.exports.closestSiloId = function(currCreep) {
-     const closestSilo = currCreep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
+    const closestSilo = currCreep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
         filter: function(structure) {
-            return (structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_SPAWN || Memory.SourceLinks.some((struct) => struct.id == structure.id ) ) &&
+            return (structure.structureType == STRUCTURE_EXTENSION || structure.structureType == STRUCTURE_SPAWN || Memory.SourceLinks.some((struct) => struct.id == structure.id)) &&
                 structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
         }
     });
@@ -142,4 +142,36 @@ module.exports.closestSourceId = function(currCreep) {
     else {
         currCreep.memory.closestSource = closestSource.id;
     }
+}
+
+
+module.exports.calcBody = function(bodyPercentage) {
+    var newBody = [];
+    var capacity = Game.spawns['Spawn1'].room.energyCapacityAvailable / 1.8;
+
+    bodyLoop:
+        while (true) {
+            for (let i = 0; i < bodyPercentage.get(WORK); i++) {
+                newBody.push(WORK);
+                if (this.BodyCost(newBody) > capacity) {
+                    newBody.pop();
+                    break bodyLoop;
+                }
+            }
+            for (let i = 0; i < bodyPercentage.get(CARRY); i++) {
+                newBody.push(CARRY);
+                if (this.BodyCost(newBody) > capacity) {
+                    newBody.pop();
+                    break bodyLoop;
+                }
+            }
+            for (let i = 0; i < bodyPercentage.get(MOVE); i++) {
+                newBody.push(MOVE);
+                if (this.BodyCost(newBody) > capacity) {
+                    newBody.pop();
+                    break bodyLoop;
+                }
+            }
+        }
+    return newBody;
 }

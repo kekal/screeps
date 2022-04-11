@@ -4,7 +4,6 @@ var roleBuilder = {
 
     /** @param {Creep} creep **/
     run: function(creep) {
-        
         general.checkReadyStatus(creep, '🚧 build');
 
         if (!creep.memory.working) {
